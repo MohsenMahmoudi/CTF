@@ -80,7 +80,7 @@ app.get('/chat/:endpoint', async (c) => {
 });
 
 // API endpoint for chat
-app.post('/api/chat/:endpoint', async (c) => {
+app.post('/chat/:endpoint', async (c) => {
   try {
     const endpoint = c.req.param('endpoint');
     console.log('Received request for endpoint:', endpoint);
