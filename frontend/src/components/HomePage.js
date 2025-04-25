@@ -13,56 +13,68 @@ import {
   ListItemText,
   Divider,
   Stack,
-  Avatar
+  Avatar,
+  Button,
+  IconButton
 } from '@mui/material';
 import endpoints from '../config/endpoints';
+import { useLanguage } from '../context/LanguageContext';
+import LanguageIcon from '@mui/icons-material/Language';
 
 function HomePage() {
+  const { language, translations, toggleLanguage } = useLanguage();
+  const t = translations[language];
+
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
+      {/* Language Selector */}
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+        <IconButton onClick={toggleLanguage} color="primary">
+          <LanguageIcon />
+        </IconButton>
+      </Box>
+
       {/* Greeting Section */}
       <Paper elevation={3} sx={{ p: 3, mb: 4, textAlign: 'center' }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          به سیستم گفتگوی تفکر انتقادی خوش آمدید
+          {t.welcome.title}
         </Typography>
         <Typography variant="h6" color="text.secondary">
-          این سیستم به شما کمک می‌کند تا مهارت‌های تفکر انتقادی خود را از طریق گفتگو با مدل‌های هوش مصنوعی بهبود بخشید.
+          {t.welcome.description}
         </Typography>
       </Paper>
-
-
 
       {/* Guidelines Section */}
       <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
         <Typography variant="h5" component="h2" gutterBottom>
-          راهنمای استفاده از سیستم
+          {t.guidelines.title}
         </Typography>
         <List>
           <ListItem>
             <ListItemText 
-              primary="۱. انتخاب مدل مناسب"
-              secondary="با توجه به نوع استدلال یا مهارت تفکری که می‌خواهید تمرین کنید، یکی از مدل‌های زیر را انتخاب کنید."
+              primary={t.guidelines.steps.selectModel.title}
+              secondary={t.guidelines.steps.selectModel.description}
             />
           </ListItem>
           <Divider />
           <ListItem>
             <ListItemText 
-              primary="۲. شروع گفتگو"
-              secondary="پس از انتخاب مدل، می‌توانید گفتگو را با طرح یک سؤال یا بیان یک استدلال آغاز کنید."
+              primary={t.guidelines.steps.startDialogue.title}
+              secondary={t.guidelines.steps.startDialogue.description}
             />
           </ListItem>
           <Divider />
           <ListItem>
             <ListItemText 
-              primary="۳. تعامل با مدل"
-              secondary="مدل به شما کمک می‌کند تا استدلال‌های خود را بهبود بخشید و نقاط ضعف آن‌ها را شناسایی کنید."
+              primary={t.guidelines.steps.interact.title}
+              secondary={t.guidelines.steps.interact.description}
             />
           </ListItem>
           <Divider />
           <ListItem>
             <ListItemText 
-              primary="۴. یادگیری مستمر"
-              secondary="از بازخوردهای مدل برای بهبود مهارت‌های تفکر انتقادی خود استفاده کنید."
+              primary={t.guidelines.steps.learn.title}
+              secondary={t.guidelines.steps.learn.description}
             />
           </ListItem>
         </List>
@@ -70,7 +82,7 @@ function HomePage() {
 
       {/* Models Grid */}
       <Typography variant="h5" component="h2" gutterBottom>
-        مدل‌های موجود
+        {t.models.title}
       </Typography>
       <Grid container spacing={3}>
         {endpoints.frontend.map((endpoint) => (
@@ -94,7 +106,7 @@ function HomePage() {
                       }
                     }}
                   >
-                    شروع گفتگو →
+                    {t.models.startDialogue}
                   </Link>
                 </Box>
               </CardContent>
@@ -117,19 +129,18 @@ function HomePage() {
               />
               <Box>
                 <Typography variant="h6" component="h3">
-                  کنفرانس بین‌المللی وب پژوهی
+                  {t.footer.icwr.title}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                  ICWR
+                  {t.footer.icwr.subtitle}
                 </Typography>
               </Box>
             </Stack>
             <Typography variant="body2" paragraph>
-              دانشگاه علم و فرهنگ
-
+              {t.footer.icwr.university}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              آدرس: تهران – ابلوار اشرفي اصفهاني – نرسيده به پل اتوبان همت – خيابان شهيد قموشي – خيابان بهار -دانشگاه علم و فرهنگ
+              {t.footer.icwr.address}
             </Typography>
           </Grid>
 
@@ -144,18 +155,18 @@ function HomePage() {
               />
               <Box>
                 <Typography variant="h6" component="h3">
-                  آزمایشگاه یادگیری الکترونیکی
+                  {t.footer.telab.title}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                  TELAB
+                  {t.footer.telab.subtitle}
                 </Typography>
               </Box>
             </Stack>
             <Typography variant="body2" paragraph>
-              دانشگاه تهران
+              {t.footer.telab.university}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              تهران، کارگر شمالی، پردیس دانشکدگان فنی دانشگاه تهران، ساختمان شماره یک دانشکده برق کامپیوتر
+              {t.footer.telab.address}
             </Typography>
           </Grid>
         </Grid>

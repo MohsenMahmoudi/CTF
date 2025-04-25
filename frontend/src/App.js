@@ -4,38 +4,38 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import ChatInterface from './components/ChatInterface';
 import HomePage from './components/HomePage';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 
 // Import endpoints configuration
 import endpoints from './config/endpoints';
 
-// Create a theme instance
-const theme = createTheme({
-  direction: 'rtl',
-  palette: {
-    primary: {
-      main: '#1976d2',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
-  },
-  typography: {
-    fontFamily: [
-      'Vazirmatn',
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-    ].join(','),
-  },
-});
+function AppContent() {
+  const { direction } = useLanguage();
 
-function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={createTheme({
+      direction,
+      palette: {
+        primary: {
+          main: '#1976d2',
+        },
+        secondary: {
+          main: '#dc004e',
+        },
+      },
+      typography: {
+        fontFamily: [
+          'Vazirmatn',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+        ].join(','),
+      },
+    })}>
       <CssBaseline />
       <Router>
         <Routes>
@@ -56,6 +56,14 @@ function App() {
         </Routes>
       </Router>
     </ThemeProvider>
+  );
+}
+
+function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 
